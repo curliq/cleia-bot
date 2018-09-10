@@ -28,6 +28,9 @@ fun main(args: Array<String>) {
                     event.guild.controller.addSingleRoleToMember(event.member, it).queue()
                 }
 
+                // Add base role (Croquete)
+                event.guild.controller.addSingleRoleToMember(event.member, event.guild.getRoleById(486517247482003457))
+
                 // Send confirmation message
                 event.channel.sendMessage(
                         "Role **$roleName** foi criado e adicionado a **${event.member.effectiveName}**.").queue()
