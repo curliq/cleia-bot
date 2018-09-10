@@ -15,19 +15,20 @@ fun main(args: Array<String>) {
             super.onMessageReceived(event)
             if (event!!.message.contentRaw.startsWith(".ign ")) {
                 val roleName = "IGN: ${event.message.contentRaw.substring(5, event.message.contentRaw.length)}"
-                val userRoles = event.member.roles
 
-                // delete previous IGN roles from user
-                for (userCurrentRole in userRoles) {
+                // Delete previous IGN roles from user
+                for (userCurrentRole in event.member.roles) {
                     if (userCurrentRole.name.startsWith("IGN:")) {
                         userCurrentRole.delete().queue()
                     }
                 }
 
+                // Create the role and add it
                 event.guild.controller.createRole().setName(roleName).setMentionable(false).queue {
                     event.guild.controller.addSingleRoleToMember(event.member, it).queue()
                 }
 
+                // Send confirmation message
                 event.channel.sendMessage(
                         "Role **$roleName** foi criado e adicionado a **${event.member.effectiveName}**.").queue()
 
