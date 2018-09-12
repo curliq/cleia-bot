@@ -3,31 +3,33 @@ buildscript {
     ext.kotlin_version = '1.2.31'
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
     }
 }
 
 apply plugin: 'kotlin'
+apply plugin: 'distribution'
 apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 mainClassName = 'AppKt'
 
-defaultTasks 'run'
+version '1.0'
+
+sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
     jcenter()
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testCompile 'junit:junit:4.11'
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    compile 'net.dv8tion:JDA:3.7.1_421'
+    compile 'net.dv8tion:JDA:3.7.1_422'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = "4.1"
-}
+compileJava.options.encoding = 'UTF-8'
+
