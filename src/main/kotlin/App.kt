@@ -1,9 +1,12 @@
+import feedbackbot.FeedbackBot
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
 fun main(args: Array<String>) {
+
+    FeedbackBot().main()
 
     val jda = JDABuilder(AccountType.BOT).setToken(Secrets.DISCORD_TOKEN)
 
@@ -26,7 +29,7 @@ fun main(args: Array<String>) {
                 }
 
                 // Add base role (Croquete)
-                event.guild.controller.addSingleRoleToMember(event.member, event.guild.getRoleById(486517247482003457))
+                event.guild.controller.addSingleRoleToMember(event.member, event.guild.getRoleById(486517247482003457)).queue()
 
                 // Send confirmation message
                 event.channel.sendMessage(
